@@ -1,0 +1,3 @@
+select-pane -D
+send-keys C-l '!!' 'Enter'
+select-pane -U
