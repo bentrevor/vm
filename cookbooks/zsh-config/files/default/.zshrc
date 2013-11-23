@@ -109,3 +109,9 @@ alias gb='git branch'
 # rails aliases
 alias rc='rails c --sandbox'
 
+# add rbenv command
+export PATH="$HOME/.rbenv/bin:$PATH"
+
+# add rbenv init to shell
+eval "$(rbenv init -)"
+

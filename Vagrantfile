@@ -30,6 +30,12 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--cpus", "2"]
   end
 
+  # Set the timezone to the host timezone
+  require 'time'
+  # CST is supposed to be GMT-6, but the time only gets set correctly when I set it to GMT+6, so I swap the '-' with a '+'
+  timezone = 'Etc/GMT' + ((Time.zone_offset(Time.now.zone)/60)/60).to_s.gsub('-','+')
+  config.vm.provision :shell, :inline => "if [ $(grep -c UTC /etc/timezone) -gt 0 ]; then echo \"#{timezone}\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata; fi"
+
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network :private_network, ip: "192.168.33.10"
@@ -59,10 +65,10 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "zsh"
     chef.add_recipe "tmux"
 
-    chef.add_recipe "java"
+    # chef.add_recipe "java"
 
     # chef.add_recipe "node"
-    chef.add_recipe "phantomjs"
+    # chef.add_recipe "phantomjs"
     # chef.add_recipe "ruby"
     # chef.add_recipe "python"
 
@@ -74,10 +80,11 @@ Vagrant.configure("2") do |config|
     # chef.add_recipe "elasticsearch"
     # chef.add_recipe "rabbitmq"
 
+    # custom recipes
+    # chef.add_recipe "lein"
     chef.add_recipe "vim"
-    chef.add_recipe "lein"
-    chef.add_recipe "rbenv"
     chef.add_recipe "zsh-config"
+    # chef.add_recipe "rbenv"
     chef.add_recipe "tmux-config"
     chef.add_recipe "git-config"
 

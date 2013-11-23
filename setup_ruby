@@ -1,0 +1,5 @@
+#!/bin/sh
+
+source ~/.tmux/install_tmux_1_8.sh
+exec "rbenv install 2.0.0-p353"
+
