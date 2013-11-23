@@ -84,7 +84,7 @@ Vagrant.configure("2") do |config|
     # chef.add_recipe "lein"
     chef.add_recipe "vim"
     chef.add_recipe "zsh-config"
-    # chef.add_recipe "rbenv"
+    chef.add_recipe "rbenv"
     chef.add_recipe "tmux-config"
     chef.add_recipe "git-config"
 

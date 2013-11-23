@@ -41,8 +41,3 @@ bash 'installing bundler...' do
   code "sudo gem install bundler"
 end
 
-cookbook_file "#{home_dir}/.ruby-version" do
-  owner user
-  group user
-end
-
