@@ -43,6 +43,6 @@ bash 'install acpi' do
 end
 
 bash 'install libssl-dev (so rbenv can install rubies)' do
-  code "sudo apt-get install libssl-dev"
+  code "sudo apt-get -y install libssl-dev"
 end
 
