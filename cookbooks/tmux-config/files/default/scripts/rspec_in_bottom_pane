@@ -1,4 +1,4 @@
-select-pane -t 0
+select-pane -t 1
 select-pane -D
 send-keys C-l 'rspec' 'Enter'
 select-pane -U
