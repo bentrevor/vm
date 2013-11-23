@@ -30,6 +30,10 @@ cookbook_file "#{home_dir}/.zshrc" do
   group user
 end
 
+bash 'add default .rspec config' do
+  code "echo '--color' >> ~/.rspec"
+end
+
 bash 'make ZSH the default login shell' do
   code "sudo chsh -s `which zsh` #{user}"
 end

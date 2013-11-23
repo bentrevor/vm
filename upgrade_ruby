@@ -1,5 +1,5 @@
 #!/bin/sh
 
-exec rbenv install 2.0.0-p353
 exec echo '2.0.0-p353' >> ~/.ruby-version
+exec rbenv install 2.0.0-p353
 
