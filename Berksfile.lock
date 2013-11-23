@@ -9,9 +9,6 @@
     "tmux": {
       "locked_version": "1.4.0"
     },
-    "rvm": {
-      "locked_version": "0.0.4"
-    },
     "java": {
       "locked_version": "1.14.0"
     },

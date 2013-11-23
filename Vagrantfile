@@ -58,15 +58,12 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "git"
     chef.add_recipe "zsh"
     chef.add_recipe "tmux"
-    chef.add_recipe "vim"
 
-    chef.add_recipe "rvm"
     chef.add_recipe "java"
-    chef.add_recipe "lein"
 
     # chef.add_recipe "node"
     chef.add_recipe "phantomjs"
-    chef.add_recipe "ruby"
+    # chef.add_recipe "ruby"
     # chef.add_recipe "python"
 
     # chef.add_recipe "postgres"
@@ -77,9 +74,13 @@ Vagrant.configure("2") do |config|
     # chef.add_recipe "elasticsearch"
     # chef.add_recipe "rabbitmq"
 
-    chef.add_recipe "git-config"
+    chef.add_recipe "vim"
+    chef.add_recipe "lein"
+    chef.add_recipe "rbenv"
     chef.add_recipe "zsh-config"
     chef.add_recipe "tmux-config"
+    chef.add_recipe "git-config"
+
     chef.add_recipe "autoupdate"
   end
 
