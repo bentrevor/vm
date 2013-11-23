@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec rbenv install 2.0.0-p353
+
