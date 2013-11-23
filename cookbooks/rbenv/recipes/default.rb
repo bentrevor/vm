@@ -30,10 +30,19 @@ directory "#{rbenv_dir}/plugins" do
   action :create
 end
 
-# ruby-build plugin (gives you `rbenv install 2.0.0-p195
+# ruby-build plugin (gives you `rbenv install 2.0.0-p195`)
 git "#{rbenv_dir}/plugins/ruby-build" do
   repository 'https://github.com/sstephenson/ruby-build.git'
   reference 'master'
   action :sync
+end
+
+bash 'installing bundler...' do
+  code "sudo gem install bundler"
+end
+
+cookbook_file "#{home_dir}/.ruby-version" do
+  owner user
+  group user
 end
 
