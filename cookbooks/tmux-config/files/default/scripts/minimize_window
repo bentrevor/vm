@@ -1,4 +1,0 @@
-select-pane -L
-select-pane -U
-resize-pane -Z
-
