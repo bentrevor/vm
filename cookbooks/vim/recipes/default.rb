@@ -30,6 +30,6 @@ link "#{home_dir}/.vimrc" do
 end
 
 bash "chown vimdir, because of CHEF-3940" do
-  code "chown #{user}:#{user} #{vim_dir}"
+  code "chown -R #{user}:#{user} #{vim_dir}"
 end
 
