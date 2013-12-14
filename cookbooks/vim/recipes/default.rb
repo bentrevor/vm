@@ -18,7 +18,7 @@ bash "update bundle" do
   EOF
 end
 
-cookbook_file "#{vim_dir}/bundle/Colour-Sampler-Pack/colors/tomorrownight.vim" do
+cookbook_file "#{vim_dir}/bundle/colors/tomorrownight.vim" do
   owner user
   group user
 end
@@ -32,4 +32,6 @@ end
 bash "chown vimdir, because of CHEF-3940" do
   code "chown -R #{user}:#{user} #{vim_dir}"
 end
+
+# TODO: change syncolor to not define default colors for Comment
 

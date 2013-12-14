@@ -1,33 +1,42 @@
 home_dir = node[:zsh][:home_dir]
 user = node[:zsh][:user]
 
-zsh_files_dir = "#{home_dir}/.zsh"
+zsh_dir = "#{home_dir}/.zsh"
 
-directory zsh_files_dir do
-  user user
-  group user
-end
-
-git "#{home_dir}/.oh-my-zsh" do
-  repository "git://github.com/robbyrussell/oh-my-zsh.git"
+git zsh_dir do
+  repository "https://github.com/bentrevor/zshfiles.git"
   reference "master"
   action :sync
 end
 
-git "#{zsh_files_dir}/zsh-syntax-highlighting" do
-  repository 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-  reference 'master'
-  action :sync
+bash "configure zsh" do
+  environment({"HOME" => home_dir})
+  code <<-EOF
+    cd #{zsh_dir}
+    ruby configure_zsh
+  EOF
 end
 
-cookbook_file "#{home_dir}/.zsh/zsh-syntax-highlighting.zsh" do
+link "#{home_dir}/.zshrc" do
+  to "#{zsh_dir}/.zshrc"
   owner user
   group user
 end
 
-cookbook_file "#{home_dir}/.zshrc" do
+link "#{home_dir}/zsh-syntax-highlighting.zsh" do
+  to "#{zsh_dir}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
   owner user
   group user
+end
+
+# git "#{home_dir}/.oh-my-zsh" do
+#   repository "git://github.com/robbyrussell/oh-my-zsh.git"
+#   reference "master"
+#   action :sync
+# end
+
+bash "chown zshdir, because of CHEF-3940" do
+  code "chown -R #{user}:#{user} #{zsh_dir}"
 end
 
 bash 'add default .rspec config' do
