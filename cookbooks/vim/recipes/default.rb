@@ -18,22 +18,7 @@ bash "update bundle" do
   EOF
 end
 
-bash "make colors directory" do
-  code "mkdir -p #{vim_dir}/bundle/colors/colors/"
-end
-
 cookbook_file "/usr/share/vim/vim73/syntax/syncolor.vim" do
-  owner user
-  group user
-end
-
-cookbook_file "#{vim_dir}/bundle/colors/colors/tomorrownight.vim" do
-  owner user
-  group user
-end
-
-link "#{home_dir}/.vimrc" do
-  to "#{vim_dir}/.vimrc"
   owner user
   group user
 end
