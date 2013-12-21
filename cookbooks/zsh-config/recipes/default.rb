@@ -29,9 +29,15 @@ bash 'make ZSH the default login shell' do
   code "sudo chsh -s `which zsh` #{user}"
 end
 
-bash 'install things' do
+bash 'install tree' do
   code "sudo apt-get install tree"
+end
+
+bash 'install acpi' do
   code "sudo apt-get install acpi"
-  code "sudo apt-get -y install libssl-dev" # for rbenv to install rubies
+end
+
+bash 'install libssl-dev for rbenv to install rubies' do
+  code "sudo apt-get -y install libssl-dev"
 end
 
