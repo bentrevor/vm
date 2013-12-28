@@ -38,7 +38,6 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "zsh"
     chef.add_recipe "tmux"
     chef.add_recipe "vim"
-    chef.add_recipe "ruby_build"
     chef.add_recipe "ruby"
 
     chef.add_recipe "java"
