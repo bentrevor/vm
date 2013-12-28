@@ -11,8 +11,8 @@ class CloudUbuntuVagrant < VagrantVbguest::Installers::Ubuntu
 end
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "bent-vm"
-  config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/raring/current/raring-server-cloudimg-i386-vagrant-disk1.box"
+  config.vm.box = 'precise64'
+  # config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/raring/current/raring-server-cloudimg-i386-vagrant-disk1.box"
   config.vbguest.installer = CloudUbuntuVagrant
 
   config.vm.network :forwarded_port, guest: 3000, host: 3000
@@ -34,34 +34,24 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/vagrant"
 
   config.vm.provision :chef_solo do |chef|
-    config.berkshelf.enabled = true
-
     chef.add_recipe "git"
     chef.add_recipe "zsh"
     chef.add_recipe "tmux"
-
-    # chef.add_recipe "java"
-
-    # chef.add_recipe "node"
-    # chef.add_recipe "phantomjs"
-    # chef.add_recipe "ruby"
-    # chef.add_recipe "python"
-
-    # chef.add_recipe "postgres"
-    # chef.add_recipe "mongodb"
-    # chef.add_recipe "mysql"
-    # chef.add_recipe "redis"
-    # chef.add_recipe "memcached"
-    # chef.add_recipe "elasticsearch"
-    # chef.add_recipe "rabbitmq"
-
-    # custom recipes
-    # chef.add_recipe "lein"
     chef.add_recipe "vim"
-    chef.add_recipe "zsh-config"
+    chef.add_recipe "ruby_build"
+    chef.add_recipe "ruby"
+
+    chef.add_recipe "java"
+    chef.add_recipe "lein"
+    chef.add_recipe "node"
+
+    chef.add_recipe "phantomjs"
+
+    chef.add_recipe "postgres"
+    chef.add_recipe "mongodb"
+    # chef.add_recipe "elasticsearch"
+
     chef.add_recipe "rbenv"
-    chef.add_recipe "tmux-config"
-    chef.add_recipe "git-config"
 
     chef.add_recipe "autoupdate"
   end
