@@ -1,3 +1,7 @@
+bash 'updating apt-get...' do
+  code "sudo apt-get update"
+end
+
 package "vim-nox"
 
 user = node[:vim][:user]
