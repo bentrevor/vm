@@ -27,9 +27,9 @@ bash 'add default .rspec config' do
   code "echo '--color' >> ~/.rspec"
 end
 
-# bash 'make ZSH the default login shell' do
-#   code "sudo chsh -s `which zsh` #{user}"
-# end
+bash 'make ZSH the default login shell' do
+  code "sudo chsh -s `which zsh` #{user}"
+end
 
 bash 'install tree' do
   code "sudo apt-get install tree"
