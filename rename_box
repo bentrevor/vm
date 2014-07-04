@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+OLD_BOX_NAME=$1
+PROVIDER=$2
+NEW_BOX_NAME=$3
+
+echo "repackaging $OLD_BOX_NAME..."
+vagrant box repackage $OLD_BOX_NAME $PROVIDER
+echo "adding $NEW_BOX_NAME..."
+vagrant box add $NEW_BOX_NAME package.box
+rm package.box
+vagrant box remove $OLD_BOX_NAME
+echo 'Success!'
