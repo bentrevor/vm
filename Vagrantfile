@@ -5,10 +5,7 @@ Vagrant.require_version ">= 1.6.1"
 
 Vagrant.configure("2") do |config|
   config.vm.box = 'ubuntu-12.04_amd64_vmware'
-  config.vm.box_url = "http://files.vagrantup.com/precise64_vmware.box"
-
-  config.vm.network :forwarded_port, guest: 3000, host: 3000
-  config.vm.network :forwarded_port, guest: 8080, host: 8080
+  # config.vm.box_url = "http://files.vagrantup.com/precise64_vmware.box"
 
   config.ssh.forward_agent = true
 
@@ -22,33 +19,41 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--cpus", "2"]
   end
 
-  # Set the timezone to the host timezone
-  require 'time'
-  # CST is supposed to be GMT-6, but the time only gets set correctly when I set it to GMT+6, so I swap the '-' with a '+'
-  timezone = 'Etc/GMT' + ((Time.zone_offset(Time.now.zone)/60)/60).to_s.gsub('-','+')
-  config.vm.provision :shell, :inline => "if [ $(grep -c UTC /etc/timezone) -gt 0 ]; then echo \"#{timezone}\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata; fi"
+  # Set the timezone to US/Central
+  config.vm.provision :shell, :inline => "echo 'US/Central' | sudo tee /etc/timezone && sudo dpkg-reconfigure --frontend noninteractive tzdata"
 
+  # disable default synced folder
   config.vm.synced_folder ".", "/vagrant", :disabled => true
 
   config.vm.provision :chef_solo do |chef|
-    chef.add_recipe "git"
-    chef.add_recipe "zsh"
-    chef.add_recipe "tmux"
-    chef.add_recipe "vim"
-    chef.add_recipe "ruby"
+    user = 'vagrant'
+    chef.json = {
+      'user'      => user,
+      'home_dir'  => "/home/#{user}",
+      'full_name' => 'Ben Trevor',
+      'email'     => 'btrevor@8thlight.com'
+    }
 
-    chef.add_recipe "java"
-    chef.add_recipe "lein"
-    chef.add_recipe "node"
+    # core
+    chef.add_recipe 'git'
+    chef.add_recipe 'zsh'
+    chef.add_recipe 'tmux'
+    # chef.add_recipe 'vim'
+    # chef.add_recipe 'emacs'
 
-    chef.add_recipe "phantomjs"
+    # languages
+    chef.add_recipe 'ruby'
+    chef.add_recipe 'chruby'
 
-    chef.add_recipe "postgres"
-    chef.add_recipe "mongodb"
-    # chef.add_recipe "elasticsearch"
+    # chef.add_recipe 'java'
+    # chef.add_recipe 'lein'
+    # chef.add_recipe 'node'
 
-    chef.add_recipe "rbenv"
-
-    chef.add_recipe "autoupdate"
+    # data stores
+    # chef.add_recipe 'postgres'
+    # chef.add_recipe 'mysql'
+    # chef.add_recipe 'sqlite'
+    # chef.add_recipe 'redis'
+    # chef.add_recipe 'mongodb'
   end
 end

@@ -1,7 +1,7 @@
 package 'libfontconfig1-dev'
 
-home_dir = node[:phantomjs][:home_dir]
-username = node[:phantomjs][:username]
+home_dir = node[:home_dir]
+user = node[:user]
 
 phantom_package = 'phantomjs-1.9.0-linux-i686'
 phantom_url = "https://phantomjs.googlecode.com/files/#{phantom_package}.tar.bz2"
@@ -13,8 +13,8 @@ phantom_unpacked_path = "#{home_dir}/#{phantom_package}"
 remote_file phantom_tar do
   source phantom_url
   mode '0644'
-  user username
-  group username
+  user user
+  group user
 end
 
 directory phantom_home do
@@ -23,14 +23,14 @@ directory phantom_home do
 end
 
 bash 'unpack phantomjs' do
-  user username
-  group username
+  user user
+  group user
   code "tar xvjf #{phantom_tar} -C #{home_dir}"
 end
 
 bash 'move phantomjs' do
-  user username
-  group username
+  user user
+  group user
   code "mv #{phantom_unpacked_path} #{phantom_home}"
 end
 
@@ -43,4 +43,3 @@ end
 file phantom_tar do
   action :delete
 end
-

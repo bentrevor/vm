@@ -1,9 +1,9 @@
 include_recipe "java"
 
-version = node[:lein][:version]
-lein_user = node[:lein][:user]
-lein_group = lein_user
-home_dir = node[:lein][:home]
+version = "2.2.0"
+lein_user = node[:user]
+lein_group = node[:user]
+home_dir = node[:home_dir]
 
 remote_file "/usr/local/bin/lein" do
   source "https://raw.github.com/technomancy/leiningen/#{version}/bin/lein"

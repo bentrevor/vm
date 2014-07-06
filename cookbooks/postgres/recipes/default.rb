@@ -4,7 +4,7 @@ package 'python-software-properties'
   package p
 end
 
-username = node[:postgres][:user]
+username = node[:user]
 
 # turn on trust authentication
 hba_conf = '/etc/postgresql/9.1/main/pg_hba.conf'
@@ -30,5 +30,3 @@ end
 bash 'restart postgres with new user and permissions' do
   code 'sudo /etc/init.d/postgresql restart'
 end
-
-

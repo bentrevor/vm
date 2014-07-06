@@ -1,7 +1,7 @@
 package 'zsh'
 
-home_dir = node[:zsh][:home_dir]
-user = node[:zsh][:user]
+home_dir = node[:home_dir]
+user = node[:user]
 
 zsh_dir = "#{home_dir}/.zsh"
 
@@ -42,4 +42,3 @@ end
 bash 'install libssl-dev for rbenv to install rubies' do
   code "sudo apt-get -y install libssl-dev"
 end
-

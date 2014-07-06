@@ -1,13 +1,13 @@
 package "git-core"
 
-user = node[:git][:user]
-home_dir = node[:git][:home_dir]
+user = node[:user]
+home_dir = node[:home_dir]
 
 template "#{home_dir}/.gitconfig" do
   owner user
   group user
-  variables :full_name => node[:git][:full_name],
-            :email => node[:git][:email]
+  variables :full_name => node[:full_name],
+            :email => node[:email]
 end
 
 cookbook_file "#{home_dir}/.gitignore_global" do

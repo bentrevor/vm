@@ -4,8 +4,8 @@ end
 
 package "vim-nox"
 
-user = node[:vim][:user]
-home_dir = node[:vim][:home_dir]
+user = node[:user]
+home_dir = node[:home_dir]
 vim_dir = "#{home_dir}/.vim"
 
 git vim_dir do
@@ -30,4 +30,3 @@ end
 bash "chown vimdir, because of CHEF-3940" do
   code "chown -R #{user}:#{user} #{vim_dir}"
 end
-
