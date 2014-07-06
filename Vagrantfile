@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-require 'secrets'
+require_relative 'secrets'
 
 Vagrant.require_version ">= 1.6.1"
 
@@ -46,7 +46,7 @@ Vagrant.configure("2") do |config|
 
     # data stores
     chef.add_recipe 'postgres'
-    chef.add_recipe 'mysql'
-    chef.add_recipe 'sqlite'
+    # chef.add_recipe 'mysql'
+    # chef.add_recipe 'sqlite'
   end
 end
