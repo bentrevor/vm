@@ -32,6 +32,7 @@ Vagrant.configure("2") do |config|
     # core
     chef.add_recipe 'git'
     chef.add_recipe 'zsh'
+    chef.add_recipe 'tmux'
     chef.add_recipe 'vim'
 
     # languages
