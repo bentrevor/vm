@@ -5,7 +5,6 @@ Vagrant.require_version ">= 1.6.1"
 
 Vagrant.configure("2") do |config|
   config.vm.box = 'debian-7.0_amd64_vbox'
-  # config.vm.box_url = "http://files.vagrantup.com/precise64_vmware.box"
 
   config.vm.provider 'virtualbox' do |vb|
     vb.customize ["modifyvm", :id, "--memory", "8192"]
@@ -44,7 +43,5 @@ Vagrant.configure("2") do |config|
 
     # data stores
     chef.add_recipe 'postgres'
-    # chef.add_recipe 'mysql'
-    # chef.add_recipe 'sqlite'
   end
 end
