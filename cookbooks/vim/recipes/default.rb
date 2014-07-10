@@ -14,13 +14,8 @@ bash "update bundle" do
   environment({"HOME" => home_dir})
   code <<-EOF
     cd #{vim_dir}
-    ruby update_bundles
+    ./update_bundles
   EOF
-end
-
-cookbook_file "/usr/share/vim/vim73/syntax/syncolor.vim" do
-  owner user
-  group user
 end
 
 bash "chown vimdir, because of CHEF-3940" do
