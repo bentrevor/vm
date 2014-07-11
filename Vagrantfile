@@ -18,8 +18,9 @@ Vagrant.configure("2") do |config|
   config.vm.network 'forwarded_port', guest: 8080, host: 8888, autocorrect: true
   config.vm.network 'forwarded_port', guest: 22, host: 2323, autocorrect: true
 
+  config.vm.synced_folder 'src', '/home/vagrant/src', :type => 'nfs'
+
   config.vm.provision :shell, :inline => "echo 'US/Central' | sudo tee /etc/timezone && sudo dpkg-reconfigure --frontend noninteractive tzdata"
-  config.vm.provision :shell, :inline => ""
 
   config.vm.provision :chef_solo do |chef|
     chef.json = {
@@ -29,20 +30,17 @@ Vagrant.configure("2") do |config|
       'email'     => 'btrevor@8thlight.com'
     }
 
-    # core
     chef.add_recipe 'git'
     chef.add_recipe 'zsh'
     chef.add_recipe 'tmux'
     chef.add_recipe 'vim'
 
-    # languages
     chef.add_recipe 'ruby'
     chef.add_recipe 'chruby'
 
     chef.add_recipe 'java'
     chef.add_recipe 'lein'
 
-    # data stores
     chef.add_recipe 'postgres'
   end
 end

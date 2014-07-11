@@ -41,3 +41,4 @@ out
 .rakeTasks
 default.gems
 .generators
+vendor/bundle
