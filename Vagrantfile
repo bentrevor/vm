@@ -4,11 +4,16 @@
 Vagrant.require_version ">= 1.6.1"
 
 Vagrant.configure("2") do |config|
-  hostname = 'debian-vm'
+  vm_name = if File.file?('.vm-name')
+              `cat .vm-name`
+            else
+              'other'
+            end
+  hostname = "#{vm_name}_vm"
   config.vm.host_name = hostname
 
   config.vm.network 'private_network', :ip => '192.168.56.56'
-  config.vm.box = 'debian-7.0_amd64_vbox'
+  config.vm.box = 'ubuntu-12.04_amd64_vbox'
   config.ssh.forward_agent = true
   config.vm.synced_folder 'src', '/home/vagrant/src', :type => 'nfs'
 
@@ -22,7 +27,7 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
 
-  config.vm.define :debian_vm do |t|
+  config.vm.define hostname do |t|
   end
 
   config.vm.provision :shell, :inline => "echo 'US/Central' | sudo tee /etc/timezone && sudo dpkg-reconfigure --frontend noninteractive tzdata"
