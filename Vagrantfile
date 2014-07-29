@@ -4,21 +4,15 @@
 Vagrant.require_version ">= 1.6.1"
 
 Vagrant.configure("2") do |config|
-  vm_name = if File.file?('.vm-name')
-              `cat .vm-name`
-            else
-              'other'
-            end
-  hostname = "#{vm_name}_vm"
-  config.vm.host_name = hostname
+  hostname = "ubuntu_vm"
 
   config.vm.network 'private_network', :ip => '192.168.56.56'
   config.vm.box = 'ubuntu-12.04_amd64_vbox'
   config.ssh.forward_agent = true
   config.vm.synced_folder 'src', '/home/vagrant/src', :type => 'nfs'
 
-  config.vm.network 'forwarded_port', guest: 8080, host: 8888, autocorrect: true
-  config.vm.network 'forwarded_port', guest: 22, host: 2323, autocorrect: true
+  config.vm.network 'forwarded_port', guest: 8080, host: 8899, autocorrect: true
+  config.vm.network 'forwarded_port', guest: 22, host: 2233, autocorrect: true
 
   config.vm.provider 'virtualbox' do |vb|
     vb.customize ["modifyvm", :id, "--name", hostname]

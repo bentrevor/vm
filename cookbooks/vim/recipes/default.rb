@@ -1,4 +1,10 @@
-package "vim-nox"
+
+bash "installing vim-nox package..." do
+  code <<-EOF
+    sudo apt-get update
+    sudo apt-get install vim-nox --yes
+  EOF
+end
 
 user = node[:user]
 home_dir = node[:home_dir]

@@ -11,7 +11,7 @@ remote_file chruby_tar do
   mode '0644'
 end
 
-bash 'unpack chruby' do
+bash 'unpacking chruby...' do
   code "tar -xzvf #{chruby_tar} -C #{home_dir}"
 end
 
@@ -19,13 +19,9 @@ file chruby_tar do
   action :delete
 end
 
-bash 'install chruby' do
+bash 'installing chruby...' do
   code <<-EOH
   cd #{chruby_unpacked_path}/
   sudo make install
-  EOH
-end
-
-bash 'touch ~/.ruby-version' do
-  code 'touch ~/.ruby-version'
+EOH
 end
