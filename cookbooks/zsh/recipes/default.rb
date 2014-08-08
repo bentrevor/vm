@@ -12,6 +12,8 @@ git zsh_dir do
 end
 
 bash "configure zsh" do
+  user user
+  group user
   environment({"HOME" => home_dir})
   code <<-EOF
     cd #{zsh_dir}
@@ -24,28 +26,31 @@ bash "chown zshdir, because of CHEF-3940" do
 end
 
 bash 'make ZSH the default login shell' do
-  code "sudo chsh -s `which zsh` #{user}"
+  code "chsh -s `which zsh` #{user}"
 end
 
 bash 'install tree' do
-  code "sudo apt-get install tree"
+  code "apt-get install tree"
 end
 
 bash 'install acpi' do
-  code "sudo apt-get install acpi"
+  code "apt-get install acpi"
 end
 
 git "#{home_dir}/dotfiles" do
+  user user
+  group user
   repository "https://github.com/bentrevor/dotfiles.git"
   reference "master"
   action :sync
 end
 
 bash "link dotfiles" do
+  user user
+  group user
   environment({"HOME" => home_dir})
   code <<-EOF
-    chown -R #{user}:#{user} #{home_dir}/dotfiles
     cd #{home_dir}/dotfiles
-    source bootstrap.sh
+    source bootstrap.sh --username=#{user}
   EOF
 end
