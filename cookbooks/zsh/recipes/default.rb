@@ -38,3 +38,17 @@ end
 bash 'install acpi' do
   code "sudo apt-get install acpi"
 end
+
+git "#{home_dir}/dotfiles" do
+  repository "https://github.com/bentrevor/dotfiles.git"
+  reference "master"
+  action :sync
+end
+
+bash "link dotfiles" do
+  environment({"HOME" => home_dir})
+  code <<-EOF
+    cd #{home_dir}/dotfiles
+    source bootstrap.sh
+  EOF
+end

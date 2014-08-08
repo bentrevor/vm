@@ -4,8 +4,6 @@
 Vagrant.require_version ">= 1.6.1"
 
 Vagrant.configure("2") do |config|
-  hostname = "ubuntu_vm"
-
   config.vm.network 'private_network', :ip => '192.168.56.56'
   config.vm.box = 'ubuntu-12.04_amd64_vbox'
   config.ssh.forward_agent = true
@@ -15,13 +13,10 @@ Vagrant.configure("2") do |config|
   config.vm.network 'forwarded_port', guest: 22, host: 2233, autocorrect: true
 
   config.vm.provider 'virtualbox' do |vb|
-    vb.customize ["modifyvm", :id, "--name", hostname]
+    vb.customize ["modifyvm", :id, "--name", 'ubuntu_vm']
     vb.customize ["modifyvm", :id, "--memory", 8192]
     vb.customize ["modifyvm", :id, "--ioapic", "on", '--cpus', 4]
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-  end
-
-  config.vm.define hostname do |t|
   end
 
   config.vm.provision :shell, :inline => "echo 'US/Central' | sudo tee /etc/timezone && sudo dpkg-reconfigure --frontend noninteractive tzdata"
