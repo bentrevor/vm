@@ -23,10 +23,6 @@ bash "chown zshdir, because of CHEF-3940" do
   code "chown -R #{user}:#{user} #{zsh_dir}"
 end
 
-bash 'add default .rspec config' do
-  code "echo '--color' >> ~/.rspec"
-end
-
 bash 'make ZSH the default login shell' do
   code "sudo chsh -s `which zsh` #{user}"
 end
@@ -48,6 +44,7 @@ end
 bash "link dotfiles" do
   environment({"HOME" => home_dir})
   code <<-EOF
+    chown -R #{user}:#{user} #{home_dir}/dotfiles
     cd #{home_dir}/dotfiles
     source bootstrap.sh
   EOF

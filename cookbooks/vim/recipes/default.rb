@@ -1,4 +1,3 @@
-
 bash "installing vim-nox package..." do
   code <<-EOF
     sudo apt-get update
