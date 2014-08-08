@@ -24,10 +24,8 @@ file chruby_tar do
 end
 
 bash 'installing chruby...' do
-  user user
-  group user
   code <<-EOH
   cd #{chruby_unpacked_path}/
-  sudo make install
+  make install
 EOH
 end

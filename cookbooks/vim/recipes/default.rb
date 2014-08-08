@@ -10,12 +10,16 @@ home_dir = node[:home_dir]
 vim_dir = "#{home_dir}/.vim"
 
 git vim_dir do
+  user user
+  group user
   repository "https://github.com/bentrevor/vimfiles.git"
   reference "master"
   action :sync
 end
 
 bash "update bundle" do
+  user user
+  group user
   environment({"HOME" => home_dir})
   code <<-EOF
     cd #{vim_dir}
